@@ -7,6 +7,11 @@
 		components: {
 			CcForm,
 			CcList
+		},
+		computed:{
+			list(){
+				return this.$store.state.Expenses.list
+			}
 		}
 
 	}
@@ -21,6 +26,8 @@
 		</div>
 		<div class="container">
 			<cc-form></cc-form>
+
+			<hr v-show="list.length > 0">
 			<cc-list></cc-list>
 		</div>
 	</q-layout>

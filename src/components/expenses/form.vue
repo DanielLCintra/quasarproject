@@ -1,17 +1,35 @@
 <script>
+
+	import moment from 'moment'
+
 	export default{
+
 		data(){
 			return {
 				expense:{
 					amount: '',
 					description: '',
-					date: ''
+					date: moment().format('DD/MM/YYYY')
 				}
 			}
 		},
 		methods:{
 			submit () {
-				this.$store.commit('ADD_EXPENSE',this.expenses)
+
+				const cloned = JSON.parse(JSON.stringify(this.expense))
+
+				this.$store.commit('ADD_EXPENSE', cloned)
+
+				this.reset()
+
+			},
+			reset(){
+
+				this.expense.amount = ''
+				this.expense.description = ''
+				this.expense.date = moment().format('DD/MM/YYYY')
+
+				this.$refs.amount.focus()		
 			}
 		}
 	}
@@ -19,7 +37,7 @@
 
 <template>	
 	<form @submit.prevent="submit">
-		<input class="my-input" type="number" v-model="expense.amount" placeholder="R$">
+		<input ref="amount" class="my-input" type="number" v-model="expense.amount" placeholder="R$">
 		<input class="my-input" type="text" v-model="expense.description" placeholder="Descrição">
 		<input class="my-input" type="text" v-model="expense.date" placeholder="Data">
 
