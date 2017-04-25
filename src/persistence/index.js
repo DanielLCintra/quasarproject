@@ -8,6 +8,16 @@ export function removeExpense(expense){
 	storage.removeItem(expense.id)
 }
 
+export function setDone(expense){
+
+	const item = storage.getItem(expense.id)
+
+	item.done = expense.done
+
+	storage.setItem(expense.id, expense)
+
+}
+
 export function getExpenses(){
 	
 	let list = []

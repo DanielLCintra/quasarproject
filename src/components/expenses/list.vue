@@ -1,6 +1,7 @@
 <script>
 
 	import { Dialog } from 'quasar'
+	import { setDone} from '../../persistence'
 
 	export default{
 
@@ -30,7 +31,16 @@
 				})
 			},
 			remove(expense){
+
 				this.$store.commit('REMOVE_EXPENSE', expense)
+			
+			},
+			toggle(expense){
+				
+				expense.done = !expense.done
+
+				setDone(expense)
+				
 			}
 		}
 	}
@@ -38,19 +48,24 @@
 
 <template>	
 	<div>
-		<div class="expense" v-for="expense in list">
-			<p>{{ expense.date }} - R${{ expense.amount }}</p>
-			<p>{{ expense.description }}</p>
+		<div class="expense" v-for="expense in list" @click="toggle(expense)">
+			<p :class="{ done: expense.done }">{{ expense.date }} - R${{ expense.amount }}</p>
+			<p :class="{ done: expense.done }">{{ expense.description }}</p>
 			<a class="removeLink" href="#" @click.prevent="askRemove(expense)"> remove</a>
 		</div>	
 	</div>
 </template>
 
 <style>
+	.done{
+		text-decoration: line-through;
+		color: #ccc;
+	}	
 	.expense{
 		border-bottom: #999 1px solid;
 		padding-top: 10px;
 		position: relative;
+		cursor: pointer;
 	}
 	.removeLink{
 		color: #c00000;
