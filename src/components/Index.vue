@@ -2,11 +2,16 @@
 
 	import CcForm from './expenses/form.vue'
 	import CcList from './expenses/list.vue'
-	
+	import { getExpenses } from '../persistence'	
+
 	export default{
 		components: {
 			CcForm,
 			CcList
+		},
+		mounted(){
+
+			this.$store.commit('SET_EXPENSES',getExpenses())
 		},
 		computed:{
 			list(){

@@ -17,6 +17,10 @@ export default new Vuex.Store({
 			addExpense(obj)
 
 			state.Expenses.list.unshift(obj)
+		},
+		SET_EXPENSES(state, obj){
+
+			state.Expenses.list = obj
 		}
 	}
 })
