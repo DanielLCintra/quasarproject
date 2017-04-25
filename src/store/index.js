@@ -1,7 +1,7 @@
 
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { addExpense } from '../persistence/index.js'
+import { addExpense,removeExpense } from '../persistence/index.js'
 
 Vue.use(Vuex)
 
@@ -17,10 +17,19 @@ export default new Vuex.Store({
 			addExpense(obj)
 
 			state.Expenses.list.unshift(obj)
+
 		},
-		SET_EXPENSES(state, obj){
+		SET_EXPENSES(state, obj){	
 
 			state.Expenses.list = obj
+
+		},
+		REMOVE_EXPENSE(state, obj){
+
+			const index = state.Expenses.list.indexOf(obj)
+			state.Expenses.list.splice(index, 1)
+
+			removeExpense(obj)
 		}
 	}
 })

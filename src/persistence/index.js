@@ -4,6 +4,10 @@ export function addExpense(expense){
 	storage.setItem(expense.id, expense)
 }
 
+export function removeExpense(expense){
+	storage.removeItem(expense.id)
+}
+
 export function getExpenses(){
 	
 	let list = []
@@ -16,3 +20,4 @@ export function getExpenses(){
 
 	return list
 }
+
